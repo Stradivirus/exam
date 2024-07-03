@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홈 페이지</title>
+</head>
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: Arial, sans-serif; background-color: #f0f0f0;">
+    <h1>NCA 기출문제</h1>
+    <a href="{% url 'quiz' %}" style="padding: 15px 30px; font-size: 18px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 20px 0;">퀴즈 풀기</a>
+    <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+        <h1>LINUX 1급 기출문제</h1>
+        <div style="display: flex; flex-direction: row; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'view_pdf' 'linux1.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2020년 1회</a>
+            <a href="{% url 'view_pdf' 'linux2.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2020년 2회</a>
+            <a href="{% url 'view_pdf' 'linux3.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2022년</a>
+            <a href="{% url 'view_pdf' 'linux4.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2023년</a>
+        </div>
+    </div>
+</body>
+</html>

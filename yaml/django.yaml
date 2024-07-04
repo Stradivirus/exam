@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django
+        image: stradivirus/django-exam
+        envFrom:
+        - configMapRef:
+            name: django-config
+        command: ["gunicorn", "exam.wsgi:application", "--bind", "unix:/work/django/exam/run/gunicorn.sock"]
+        volumeMounts:
+        - name: static-volume
+          mountPath: /work/django/exam/staticfiles
+        - name: socket-volume
+          mountPath: /work/django/exam/run
+        readinessProbe:
+          exec:
+            command: ["/bin/sh", "-c", "test -f /work/django/exam/run/gunicorn.sock"]
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          exec:
+            command: ["/bin/sh", "-c", "test -f /work/django/exam/run/gunicorn.sock"]
+          initialDelaySeconds: 15
+          periodSeconds: 15
+      volumes:
+      - name: static-volume
+        emptyDir: {}
+      - name: socket-volume
+        emptyDir: {}

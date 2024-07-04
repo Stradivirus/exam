@@ -30,7 +30,6 @@
         .sidebar-button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #007BFF;
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -39,6 +38,13 @@
             margin: 10px 0;
             text-align: center;
             width: 80%;
+        }
+        .blue-button {
+            background-color: #007BFF;
+        }
+        .yellow-button {
+            background-color: #FFD700;
+            color: black;
         }
     </style>
 </head>
@@ -57,8 +63,9 @@
         </div>
     </div>
     <div class="sidebar">
-        <a href="/admin" class="sidebar-button">Admin</a>
-        <a href="http://localhost:5050" class="sidebar-button">PgAdmin</a>
+        <a href="/admin" class="sidebar-button blue-button">Admin</a>
+        <a href="http://localhost:5050" class="sidebar-button blue-button">PgAdmin</a>
+        
     </div>
 </body>
 </html>

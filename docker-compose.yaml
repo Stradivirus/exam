@@ -12,8 +12,8 @@ services:
       - POSTGRES_DB=linux
       - POSTGRES_USER=moon
       - POSTGRES_PASSWORD=1234
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
     networks:
       - exam_network
 
@@ -21,7 +21,7 @@ services:
     container_name: django
     build: .
     command: gunicorn exam.wsgi:application --bind 0.0.0.0:8000
-    #command: gunicorn exam.wsgi:application --bind unix:/work/django/exam/run/gunicorn.sock
+      #command: gunicorn exam.wsgi:application --bind unix:/work/django/exam/run/gunicorn.sock
     volumes:
       - .:/work/django/exam
       - static_volume:/work/django/exam/staticfiles

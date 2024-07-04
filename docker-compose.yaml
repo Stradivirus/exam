@@ -12,8 +12,8 @@ services:
       - POSTGRES_DB=linux
       - POSTGRES_USER=moon
       - POSTGRES_PASSWORD=1234
-    expose:
-      - "5432"
+    ports:
+      - "5432:5432"
     networks:
       - exam_network
 

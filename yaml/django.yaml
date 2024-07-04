@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django
+        image: stradivirus/django-exam
+        command: ["gunicorn", "exam.wsgi:application", "--bind", "0.0.0.0:8000"]
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          value: postgres://moon:1234@postgresql:5432/linux
+        volumeMounts:
+        - name: static-volume
+          mountPath: /work/django/exam/staticfiles
+        - name: socket-volume
+          mountPath: /work/django/exam/run
+      volumes:
+      - name: static-volume
+        emptyDir: {}
+      - name: socket-volume
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: django
+spec:
+  selector:
+    app: django
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000

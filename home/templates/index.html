@@ -4,18 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>홈 페이지</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .main-content {
+            flex: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .sidebar {
+            flex: 10%;
+            background-color: #e0e0e0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .sidebar-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin: 10px 0;
+            text-align: center;
+            width: 80%;
+        }
+    </style>
 </head>
-<body style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: Arial, sans-serif; background-color: #f0f0f0;">
-    <h1>NCA 기출문제</h1>
-    <a href="{% url 'quiz' %}" style="padding: 15px 30px; font-size: 18px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 20px 0;">퀴즈 풀기</a>
-    <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
-        <h1>LINUX 1급 기출문제</h1>
-        <div style="display: flex; flex-direction: row; justify-content: center; flex-wrap: wrap;">
-            <a href="{% url 'view_pdf' 'linux1.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2020년 1회</a>
-            <a href="{% url 'view_pdf' 'linux2.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2020년 2회</a>
-            <a href="{% url 'view_pdf' 'linux3.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2022년</a>
-            <a href="{% url 'view_pdf' 'linux4.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2023년</a>
+<body>
+    <div class="main-content">
+        <h1>NCA 기출문제</h1>
+        <a href="{% url 'quiz' %}" style="padding: 15px 30px; font-size: 18px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 20px 0;">퀴즈 풀기</a>
+        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+            <h1>LINUX 1급 기출문제</h1>
+            <div style="display: flex; flex-direction: row; justify-content: center; flex-wrap: wrap;">
+                <a href="{% url 'view_pdf' 'linux1.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2020년 1회</a>
+                <a href="{% url 'view_pdf' 'linux2.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2020년 2회</a>
+                <a href="{% url 'view_pdf' 'linux3.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2022년</a>
+                <a href="{% url 'view_pdf' 'linux4.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2023년</a>
+            </div>
         </div>
+    </div>
+    <div class="sidebar">
+        <a href="/admin" class="sidebar-button">Admin</a>
+        <a href="http://localhost:5050" class="sidebar-button">PgAdmin</a>
     </div>
 </body>
 </html>

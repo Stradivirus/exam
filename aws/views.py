@@ -9,7 +9,6 @@ def aws_quiz(request):
     questions = list(aws.objects.all())
     total_questions = len(questions)
     num_questions = min(40, total_questions)
-
     if request.method == 'POST':
         selected_question_ids = request.session.get('selected_question_ids', [])
         selected_questions = aws.objects.filter(id__in=selected_question_ids)
@@ -25,6 +24,7 @@ def aws_quiz(request):
                 results.append({
                     'question_id': question.id,
                     'question_text': question.question_text,
+                    'question_text_last_line': question.question_text_last_line,  # 추가된 부분
                     'choices': {
                         'A': question.option_a,
                         'B': question.option_b,
@@ -41,7 +41,7 @@ def aws_quiz(request):
         selected_questions = random.sample(questions, num_questions)
         request.session['selected_question_ids'] = [q.id for q in selected_questions]
         form = aws_QuizForm(questions=selected_questions)
-    
+   
     return render(request, 'aws/quiz.html', {'form': form, 'total_questions': total_questions})
 
 def aws_result_view(request):

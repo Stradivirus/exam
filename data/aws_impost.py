@@ -4,7 +4,6 @@ import django
 
 # 현재 스크립트의 디렉토리를 얻습니다.
 current_dir = os.path.dirname(os.path.abspath(__file__))
-
 # 프로젝트 루트 디렉토리를 Python 경로에 추가
 project_root = os.path.dirname(current_dir)
 sys.path.append(project_root)
@@ -26,12 +25,14 @@ def import_questions_from_file(file_path):
         for index, q in enumerate(questions, start=1):
             lines = q.strip().split('\n')
             if len(lines) == 7:
-                question_text = '\n'.join(lines[0:2])
+                question_text = lines[0]  # 첫 번째 줄
+                question_text_last_line = lines[1]  # 두 번째 줄
                 choices = lines[2:6]
                 correct_answer = lines[6].split(':')[-1].strip()
                 
                 question = aws(
                     question_text=question_text,
+                    question_text_last_line=question_text_last_line,
                     option_a=choices[0][3:].strip(),  # "1) " 제거
                     option_b=choices[1][3:].strip(),  # "2) " 제거
                     option_c=choices[2][3:].strip(),  # "3) " 제거
@@ -40,7 +41,9 @@ def import_questions_from_file(file_path):
                 )
                 question.save()
                 saved_count += 1
-                print(f"저장된 문제 {index}: {question_text}")
+                print(f"저장된 문제 {index}:")
+                print(f"본문: {question_text}")
+                print(f"마지막 문장: {question_text_last_line}")
             else:
                 skipped_numbers.append(index)
                 print(f"저장되지 않은 문제 {index}:")

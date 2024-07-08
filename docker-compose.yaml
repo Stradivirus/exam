@@ -3,13 +3,13 @@ version: '3.8'
 services:
   db:
     container_name: postgresql
-    image: postgres:latest
+    image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./linux_db_dump.sql:/docker-entrypoint-initdb.d/linux_db_dump.sql
+      - ./exam_db_dump.sql:/docker-entrypoint-initdb.d/exam_db_dump.sql
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
     environment:
-      - POSTGRES_DB=linux
+      - POSTGRES_DB=exam
       - POSTGRES_USER=moon
       - POSTGRES_PASSWORD=1234
     ports:
@@ -29,7 +29,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://moon:1234@db:5432/linux
+      - DATABASE_URL=postgres://moon:1234@db:5432/exam
     networks:
       - exam_network
 
@@ -44,19 +44,6 @@ services:
       - "80:80"
     depends_on:
       - django
-    networks:
-      - exam_network
-
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@example.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
-    ports:
-      - "5050:80"
-    depends_on:
-      - db
     networks:
       - exam_network
 

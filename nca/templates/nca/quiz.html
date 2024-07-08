@@ -1,7 +1,8 @@
 <div style="width: 90%; margin-left: 5%; margin-right: 5%; background-color: #f0f0f0; padding: 20px;">
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="제출">
-    </form>
-  </div>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="제출" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background-color 0.3s;">
+  </form>
+</div>
+

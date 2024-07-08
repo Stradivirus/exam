@@ -7,5 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('linux', include('linux.urls')),
     path('nca/', include('nca.urls')),
+    path('aws/', include('aws.urls')),
     path('', include('home.urls')),
 ] 

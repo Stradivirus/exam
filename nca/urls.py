@@ -3,8 +3,6 @@ from . import views
 
 urlpatterns = [
     # ... 다른 URL 패턴들 ...
-    path('quiz/', views.quiz, name='quiz'),
-    path('result/', views.result_view, name='result_view'),
-    path('', views.quiz, name='quiz'),
+    path('quiz/', views.nca_quiz, name='nca_quiz'),
+    path('result/', views.nca_result_view, name='nca_result_view'),
 ]
-

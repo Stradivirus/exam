@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'linux',
     'home',
     'nca',
+    'aws',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +80,7 @@ WSGI_APPLICATION = 'exam.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'linux',
+        'NAME': 'exam',
         'USER': 'moon',
         'PASSWORD': '1234',
         'HOST': 'db',

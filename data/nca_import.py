@@ -1,5 +1,13 @@
 import os
+import sys
 import django
+
+# 현재 스크립트의 디렉토리를 얻습니다.
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 프로젝트 루트 디렉토리를 Python 경로에 추가
+project_root = os.path.dirname(current_dir)
+sys.path.append(project_root)
 
 # Django 설정 로드
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "exam.settings")
@@ -13,7 +21,7 @@ def import_questions_from_file(file_path):
         questions = content.split('\n\n')
         
         saved_count = 0
-        skipped_count = 0
+        skipped_numbers = []
         
         for index, q in enumerate(questions, start=1):
             lines = q.strip().split('\n')
@@ -34,15 +42,16 @@ def import_questions_from_file(file_path):
                 saved_count += 1
                 print(f"저장된 문제 {index}: {question_text}")
             else:
-                skipped_count += 1
+                skipped_numbers.append(index)
                 print(f"저장되지 않은 문제 {index}:")
                 print(q)
                 print("-" * 50)
 
     print(f"\n문제 가져오기가 완료되었습니다.")
     print(f"저장된 문제 수: {saved_count}")
-    print(f"저장되지 않은 문제 수: {skipped_count}")
+    print(f"저장되지 않은 문제 번호: {skipped_numbers}")
 
 if __name__ == "__main__":
-    file_path = "/work/django/exam/nca.txt"  # 실제 txt 파일 경로로 변경하세요
+    # 현재 스크립트와 같은 디렉토리에 있는 nca.txt 파일을 사용합니다.
+    file_path = os.path.join(current_dir, "nca.txt")
     import_questions_from_file(file_path)

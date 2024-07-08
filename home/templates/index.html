@@ -39,19 +39,32 @@
             text-align: center;
             width: 80%;
         }
-        .blue-button {
-            background-color: #007BFF;
+        .button-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
         }
-        .yellow-button {
-            background-color: #FFD700;
-            color: black;
+        .main-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin: 10px;
         }
+        .blue-button { background-color: #007BFF; }
+        .orange-button { background-color: #fd7e14; }
     </style>
 </head>
 <body>
     <div class="main-content">
-        <h1>NCA 기출문제</h1>
-        <a href="{% url 'quiz' %}" style="padding: 15px 30px; font-size: 18px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 20px 0;">퀴즈 풀기</a>
+        <h1>NCA, AWS 기출문제</h1>
+        <div class="button-container">
+            <a href="/nca/quiz" class="main-button blue-button">NCA</a>
+            <a href="/aws/quiz" class="main-button orange-button">AWS</a>
+        </div>
         <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
             <h1>LINUX 1급 기출문제</h1>
             <div style="display: flex; flex-direction: row; justify-content: center; flex-wrap: wrap;">
@@ -64,7 +77,6 @@
     </div>
     <div class="sidebar">
         <a href="/admin" class="sidebar-button blue-button">Admin</a>
- 
     </div>
 </body>
 </html>

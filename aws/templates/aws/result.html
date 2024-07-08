@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퀴즈 결과</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 5%;
+            background-color: #f0f0f0;
+            min-height: 100vh;
+        }
+        .content {
+            width: 90%;
+            padding: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar"></div>
+    <div class="content">
+        <h1>퀴즈 결과</h1>
+        <p>총점: {{ score }} / {{ total }}</p>
+
+        <h2>문제 리뷰</h2>
+        {% for result in results %}
+            <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ddd; background-color: {% if result.is_correct %}#d4edda{% else %}#f8d7da{% endif %}; border-color: {% if result.is_correct %}#c3e6cb{% else %}#f5c6cb{% endif %};">
+                <h3>문제 {{ forloop.counter }}</h3>
+                <p>{{ result.question_text }}</p>
+                <ul>
+                    <li>A: {{ result.choices.A }}</li>
+                    <li>B: {{ result.choices.B }}</li>
+                    <li>C: {{ result.choices.C }}</li>
+                    <li>D: {{ result.choices.D }}</li>
+                </ul>
+                <p>당신의 답변: {{ result.user_answer }}</p>
+                <p>정답: {{ result.correct_answer }}</p>
+            </div>
+        {% endfor %}
+
+        <div style="margin-top: 20px;">
+            <a href="{% url 'aws_quiz' %}" class="button">다시 시작하기</a>
+            <a href="{% url 'index' %}" class="button">홈으로</a>
+        </div>
+    </div>
+    <div class="sidebar"></div>
+</body>
+</html>

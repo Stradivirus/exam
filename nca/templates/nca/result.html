@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>퀴즈 결과</title>
     <style>
+        body {
+            width: 90%;
+            margin-left: 5%;
+            margin-right: 5%;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
         .button {
             display: inline-block;
             padding: 10px 20px;
@@ -41,7 +48,7 @@
     {% endfor %}
 
     <div style="margin-top: 20px;">
-        <a href="{% url 'quiz' %}" class="button">다시 시작하기</a>
+        <a href="{% url 'nca_quiz' %}" class="button">다시 시작하기</a>
         <a href="{% url 'index' %}" class="button">홈으로</a>
     </div>
 </body>

@@ -1,6 +1,11 @@
+import sys
 import os
 import django
 import csv
+
+# 프로젝트 루트 디렉토리를 Python 경로에 추가
+project_root = '/work/django/exam'
+sys.path.append(project_root)
 
 # Django 설정 로드
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "exam.settings")
@@ -10,7 +15,10 @@ django.setup()
 from linux.models import PDF1, PDF2, PDF3, PDF4
 
 def import_data():
-    with open('data.csv', 'r') as file:
+    # 데이터 파일 경로 설정
+    data_file_path = '/work/django/exam/data/data.csv'
+    
+    with open(data_file_path, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
             col1, col2, col3, col4, col5 = map(int, row)

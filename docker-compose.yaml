@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     container_name: postgresql
-    image: stradivirus/postgres:13
+    image: postgres:latest
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./linux_db_dump.sql:/docker-entrypoint-initdb.d/linux_db_dump.sql

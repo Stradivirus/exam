@@ -83,7 +83,8 @@ DATABASES = {
         'NAME': 'exam',
         'USER': 'moon',
         'PASSWORD': '1234',
-        'HOST': 'localhost',
+        #'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }

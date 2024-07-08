@@ -5,9 +5,7 @@ services:
     container_name: postgresql
     image: postgres:16
     volumes:
-      #- postgres_data:/var/lib/postgresql/data
       - ./exam_db_dump.sql:/docker-entrypoint-initdb.d/exam_db_dump.sql
-        #- ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
     environment:
       - POSTGRES_DB=exam
       - POSTGRES_USER=moon

@@ -22,7 +22,6 @@ services:
     volumes:
       - .:/work/django/exam
       - static_volume:/work/django/exam/staticfiles
-      - socket_volume:/work/django/exam/run
     depends_on:
       - db
     environment:
@@ -46,7 +45,6 @@ services:
 volumes:
   postgres_data:
   static_volume:
-  socket_volume:
 
 networks:
   exam_network:

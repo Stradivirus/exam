@@ -1,8 +1,50 @@
 <div style="width: 90%; margin-left: 5%; margin-right: 5%; background-color: #f0f0f0; padding: 20px;">
+  <style>
+    body {
+      font-size: 18px; /* 기본 글씨 크기 설정 */
+    }
+    .question-container {
+      margin-bottom: 30px;
+    }
+    .question-text {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      font-size: 18px; /* 질문 텍스트 크기 */
+      font-weight: bold; /* 질문을 굵게 표시 */
+    }
+    .question-options label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px; /* 선택지 텍스트 크기 */
+    }
+    input[type="submit"] {
+      width: 100%;
+      padding: 15px; /* 버튼 크기 증가 */
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 20px; /* 제출 버튼 텍스트 크기 */
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+  
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="제출" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background-color 0.3s;">
+    {% for field in form %}
+      <div class="question-container">
+        <div class="question-text">
+          {{ field.label_tag }}
+        </div>
+        <div class="question-options">
+          {{ field }}
+        </div>
+      </div>
+    {% endfor %}
+    <input type="submit" value="제출">
   </form>
 </div>
-

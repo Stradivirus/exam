@@ -2,8 +2,13 @@
 <html>
 <head>
     <title>{{ filename }}</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com; frame-src 'self' http://localhost:* data: blob: *;">
     <style>
-        /* 기존 스타일 유지 */
+        /* 기존 스타일 전부 유지 - 변경 없음 */
         body {
             display: flex;
             margin: 0;
@@ -14,6 +19,13 @@
         #pdf-viewer {
             width: 75%;
             height: 100%;
+            overflow: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #pdf-viewer canvas {
+            display: block;
+            margin: 0 auto 20px auto;
         }
         #unanswered-panel {
             width: 6%;
@@ -113,10 +125,12 @@
     </style>
 </head>
 <body>
-    <embed id="pdf-viewer" src="{{ pdf_url }}" type="application/pdf">
+    <div id="pdf-viewer">
+        <!-- 페이지들이 여기에 동적으로 추가됩니다 -->
+    </div>
+    
     <div id="unanswered-panel">
         <h3>미답변 문제</h3>
-        <!-- 미답변 문제 버튼은 JavaScript로 동적으로 생성됩니다 -->
     </div>
     <div id="answer-panel">
         <form id="answer-form" method="POST" action="{% url 'result' filename=filename %}">
@@ -151,8 +165,46 @@
                 unansweredPanel.appendChild(unansweredButton);
             }
 
-            startTimer(100 * 60); // 100분을 초로 변환
+            startTimer(100 * 60);
+            loadPDF();
         });
+
+        async function loadPDF() {
+            const url = '{{ pdf_url }}';
+            const loadingTask = pdfjsLib.getDocument(url);
+            
+            try {
+                const pdf = await loadingTask.promise;
+                const pdfViewer = document.getElementById('pdf-viewer');
+                const containerWidth = pdfViewer.offsetWidth - 40;  // padding 고려
+                const actualWidth = containerWidth * 0.9;  // 양쪽 5%씩 여백
+                
+                // 모든 페이지를 순회하며 렌더링
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `pdf-page-${pageNum}`;
+                    canvas.style.margin = '0 5%';  // 좌우 5% 여백
+                    pdfViewer.appendChild(canvas);
+                    
+                    const page = await pdf.getPage(pageNum);
+                    const ctx = canvas.getContext('2d');
+                    
+                    // 실제 너비에 맞게 스케일 조정
+                    const scale = actualWidth / page.getViewport({scale: 1}).width;
+                    const viewport = page.getViewport({scale: scale});
+                    
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    
+                    await page.render({
+                        canvasContext: ctx,
+                        viewport: viewport
+                    }).promise;
+                }
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+            }
+        }
 
         function selectAnswer(button, questionNumber, answer) {
             const questionDiv = button.closest('.question');

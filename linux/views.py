@@ -6,16 +6,12 @@ import os
 from django.conf import settings
 from django.apps import apps
 
-def pdf_list(request):
-    pdf_dir = os.path.join(settings.BASE_DIR, 'pdf')
-    pdfs = [f for f in os.listdir(pdf_dir) if f.endswith('.pdf')]
-    return render(request, 'pdf_list.html', {'pdfs': pdfs})
-
 def view_pdf(request, filename):
-    pdf_path = settings.STATICFILES_DIRS[0] / filename
-    if pdf_path.exists():
+    # PDF 파일이 staticfiles 디렉토리에 있는지 확인
+    pdf_path = os.path.join(settings.STATIC_ROOT, filename)
+    if os.path.exists(pdf_path):
         pdf_url = settings.STATIC_URL + filename
-        num_questions = 100  # 문제 수를 적절히 조정하세요
+        num_questions = 100
         form = AnswerForm(num_questions=num_questions)
         return render(request, 'view_pdf.html', {
             'pdf_url': pdf_url,
@@ -24,6 +20,7 @@ def view_pdf(request, filename):
         })
     else:
         return render(request, 'pdf_not_found.html', {'filename': filename})
+    
 
 def result(request, filename):
     if request.method == 'POST':

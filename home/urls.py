@@ -6,6 +6,6 @@ from . import views
 #    return redirect('login')
 
 urlpatterns = [
-    path('index', views.index, name='index'),
-    path('', views.login_view, name='login'),
+    path('', views.index, name='index'),
+    #path('', views.login_view, name='login'),
 ]

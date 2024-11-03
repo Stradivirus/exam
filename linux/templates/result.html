@@ -1,11 +1,15 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>시험 결과</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com; frame-src 'self' http://localhost:* data: blob: *;">
     <style>
         body, html {
             margin: 0;
@@ -20,7 +24,14 @@
         #pdf-viewer {
             width: 60%;
             height: 100%;
-            border: none;
+            overflow: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            background: white;
+        }
+        #pdf-viewer canvas {
+            display: block;
+            margin: 0 auto 20px auto;
         }
         .right-panel {
             width: 40%;
@@ -88,7 +99,9 @@
 </head>
 <body>
     <div class="container">
-        <embed id="pdf-viewer" src="{% static filename %}" type="application/pdf">
+        <div id="pdf-viewer">
+            <!-- 페이지들이 여기에 동적으로 추가됩니다 -->
+        </div>
         <div class="right-panel">
             <div class="result-container">
                 <h1>시험 결과</h1>
@@ -127,5 +140,49 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPDF();
+        });
+
+        async function loadPDF() {
+            const url = "{% static filename %}";
+            const loadingTask = pdfjsLib.getDocument(url);
+            
+            try {
+                const pdf = await loadingTask.promise;
+                const pdfViewer = document.getElementById('pdf-viewer');
+                const containerWidth = pdfViewer.offsetWidth - 40;  // padding 고려
+                const actualWidth = containerWidth * 0.9;  // 양쪽 5%씩 여백
+                
+                // 모든 페이지를 순회하며 렌더링
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `pdf-page-${pageNum}`;
+                    canvas.style.margin = '0 5%';  // 좌우 5% 여백
+                    pdfViewer.appendChild(canvas);
+                    
+                    const page = await pdf.getPage(pageNum);
+                    const ctx = canvas.getContext('2d');
+                    
+                    // 실제 너비에 맞게 스케일 조정
+                    const scale = actualWidth / page.getViewport({scale: 1}).width;
+                    const viewport = page.getViewport({scale: scale});
+                    
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    
+                    await page.render({
+                        canvasContext: ctx,
+                        viewport: viewport
+                    }).promise;
+                }
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+                console.log('PDF URL:', url);
+            }
+        }
+    </script>
 </body>
 </html>

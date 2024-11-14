@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     container_name: postgresql_exam
@@ -10,8 +8,6 @@ services:
       - POSTGRES_DB=exam
       - POSTGRES_USER=moon
       - POSTGRES_PASSWORD=1234
-    ports:
-      - "5434:5432"
     networks:
       - exam_network
 
@@ -25,11 +21,9 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://moon:1234@db:5433/exam
+      - DATABASE_URL=postgres://moon:1234@db/exam
     networks:
       - exam_network
-    expose:
-      - "8002"
 
   nginx:
     container_name: nginx

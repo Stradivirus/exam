@@ -3,77 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>홈 페이지</title>
+    <title>기출문제</title>
     <style>
         body {
-            display: flex;
-            margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-        .main-content {
-            flex: 90%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .sidebar {
-            flex: 10%;
-            background-color: #e0e0e0;
+            margin: 0;
             padding: 20px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
         }
-        .sidebar-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.1s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            margin: 10px 0;
+
+        .main-content {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 {
             text-align: center;
-            width: 80%;
+            color: #333;
+            margin-bottom: 30px;
         }
+
         .button-container {
             display: flex;
             justify-content: center;
+            gap: 20px;
             flex-wrap: wrap;
+            margin-bottom: 40px;
         }
+
         .main-button {
+            font-size: 18px;
+            padding: 20px 40px;
+            min-width: 400px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .main-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .blue-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .orange-button {
+            background-color: #ff9900;
+            color: white;
+        }
+
+        .linux-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .linux-button {
             padding: 15px 30px;
             font-size: 18px;
+            background-color: #4CAF50;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s, transform 0.1s;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            margin: 10px;
         }
-        .blue-button { background-color: #007BFF; }
-        .orange-button { background-color: #fd7e14; }
+
+        .linux-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .main-button {
+                min-width: 100%;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="main-content">
         <h1>NCA, AWS 기출문제</h1>
+        
         <div class="button-container">
-            <a href="/nca/quiz" class="main-button blue-button">NCA</a>
-            <a href="/aws/quiz" class="main-button orange-button">AWS</a>
+            <a href="/nca/quiz" class="main-button blue-button">
+                NAVER Cloud Platform Certified Associate
+            </a>
+            <a href="/aws/quiz" class="main-button orange-button">
+                AWS Certified Cloud Practitioner
+            </a>
         </div>
-        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
-            <h1>LINUX 1급 기출문제</h1>
-            <div style="display: flex; flex-direction: row; justify-content: center; flex-wrap: wrap;">
-                <a href="{% url 'view_pdf' 'linux1.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2020년 1회</a>
-                <a href="{% url 'view_pdf' 'linux2.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2020년 2회</a>
-                <a href="{% url 'view_pdf' 'linux3.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2022년</a>
-                <a href="{% url 'view_pdf' 'linux4.pdf' %}" style="padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 10px;">2023년</a>
-            </div>
+
+        <h1>LINUX 1급 기출문제</h1>
+        
+        <div class="linux-buttons">
+            <a href="{% url 'view_pdf' 'linux1.pdf' %}" class="linux-button">2020년 1회</a>
+            <a href="{% url 'view_pdf' 'linux2.pdf' %}" class="linux-button">2020년 2회</a>
+            <a href="{% url 'view_pdf' 'linux3.pdf' %}" class="linux-button">2022년</a>
+            <a href="{% url 'view_pdf' 'linux4.pdf' %}" class="linux-button">2023년</a>
         </div>
-    </div>    
+    </div>
 </body>
 </html>

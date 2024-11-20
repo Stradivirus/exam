@@ -8,7 +8,7 @@ from .forms import aws_QuizForm
 def aws_quiz(request):
     questions = list(aws.objects.all())
     total_questions = len(questions)
-    num_questions = min(40, total_questions)
+    num_questions = min(20, total_questions)
     if request.method == 'POST':
         selected_question_ids = request.session.get('selected_question_ids', [])
         selected_questions = aws.objects.filter(id__in=selected_question_ids)
